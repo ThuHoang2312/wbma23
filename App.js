@@ -1,12 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
+import List from './components/List';
 
 const App = () => {
   return (
     <>
-      <View style={styles.container}>
-        <Text>Hello world!!!!</Text>
-      </View>
+      <SafeAreaView style={styles.container}>
+        <List />
+      </SafeAreaView>
       <StatusBar style="auto" />
     </>
   );
@@ -18,6 +19,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  item: {
+    flex: 1,
+    backgroundColor: '#CCCCCC',
+    flexDirection: 'row',
+    marginBottom: 4,
+  },
+  image: {
+    width: 120,
+    height: 200,
+    margin: 10,
   },
 });
 
