@@ -1,11 +1,15 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
+import {uploadUrl} from '../utils/variables';
 
 const ListItem = ({singleMedia}) => {
   const item = singleMedia;
   return (
     <TouchableOpacity style={styles.item}>
-      <Image style={styles.image} source={{uri: item.thumbnails.w160}}></Image>
+      <Image
+        style={styles.image}
+        source={{uri: uploadUrl + item.thumbnails?.w160}}
+      ></Image>
       <View style={styles.textWrapper}>
         <Text style={styles.title}>{item.title}</Text>
         <Text>{item.description}</Text>
