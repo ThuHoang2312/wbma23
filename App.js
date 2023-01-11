@@ -20,17 +20,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  item: {
-    flex: 1,
-    backgroundColor: '#CCCCCC',
-    flexDirection: 'row',
-    marginBottom: 4,
-  },
-  image: {
-    width: 120,
-    height: 200,
-    margin: 10,
-  },
 });
 
 export default App;

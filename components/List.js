@@ -1,11 +1,4 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import ListItem from './ListItem';
 const mediaArray = [
   {
@@ -44,9 +37,16 @@ const List = () => {
   return (
     <FlatList
       data={mediaArray}
+      style={styles.list}
       renderItem={({item}) => <ListItem singleMedia={item} />}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    width: '100%',
+  },
+});
 
 export default List;
