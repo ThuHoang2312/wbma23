@@ -8,7 +8,7 @@ const ListItem = ({singleMedia}) => {
       <Image style={styles.image} source={{uri: item.thumbnails.w160}}></Image>
       <View style={styles.textWrapper}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text>{item.description}</Text>
+        <Text style={styles.description}>{item.description}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -29,20 +29,27 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#0d1b2a',
     flexDirection: 'row',
     marginBottom: 4,
     padding: 10,
+    justifyContent: 'space-around',
   },
   image: {
     flex: 1,
     resizeMode: 'cover',
     width: 100,
     height: '100%',
+    borderBottomLeftRadius: 70,
+    borderRadius: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
+    color: 'white',
+  },
+  description: {
+    color: '#6c757d',
   },
 });
 

@@ -5,11 +5,12 @@ import {
   View,
   Text,
 } from 'react-native';
+import {Settings} from 'react-native-feather';
 import {StatusBar} from 'expo-status-bar';
 import List from './components/List';
 
 const App = () => {
-  const image = {uri: 'http://placekitten.com/100/300'};
+  const image = {uri: 'http://placekitten.com/2048/1920'};
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -18,7 +19,14 @@ const App = () => {
             source={image}
             resizeMode="cover"
             style={styles.image}
+            imageStyle={{borderBottomRightRadius: 50}}
           >
+            <Settings
+              width={40}
+              height={40}
+              stroke="white"
+              style={styles.icon}
+            />
             <Text style={styles.text}>Homeless kittens</Text>
           </ImageBackground>
         </View>
@@ -32,29 +40,33 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222222',
+    backgroundColor: '#000814',
     alignItems: 'center',
     justifyContent: 'center',
   },
   image: {
     flex: 1,
-    width: '100%',
     margin: 5,
   },
   header: {
-    height: 400,
+    height: 300,
     width: '100%',
     marginBottom: 30,
   },
   text: {
-    backgroundColor: '#0000FF',
+    backgroundColor: '#00b4d8',
     color: 'white',
     fontSize: 20,
-    padding: 20,
+    padding: 10,
     position: 'absolute',
     bottom: 20,
     alignSelf: 'flex-start',
     fontWeight: 'bold',
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 20,
   },
 });
 
