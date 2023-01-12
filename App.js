@@ -1,10 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
-import Navigation from './navigators/Navigation';
+import Navigator from './navigators/Navigator';
 
 const App = () => {
   return (
     <>
-      <Navigation />
+      <Navigator />
       <StatusBar style="auto" />
     </>
   );
