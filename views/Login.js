@@ -1,34 +1,30 @@
 import React from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import {useAuthentication, useUser} from '../hooks/ApiHooks';
+import {useUser} from '../hooks/ApiHooks';
+import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForms';
 
 const Login = ({navigation}) => {
   // props is needed for navigation
-  const {setIsLoggedIn} = React.useContext(MainContext);
-  const {postLogin} = useAuthentication();
+  const {setIsLoggedIn, setUser} = React.useContext(MainContext);
   const {getUserByToken} = useUser();
-
-  const logIn = async () => {
-    console.log('Button pressed');
-    const data = {username: 'thuhoang', password: '123456789'};
-    try {
-      const loginResult = await postLogin(data);
-      console.log('logIn', loginResult);
-      await AsyncStorage.setItem('userToken', loginResult.token);
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.error('logIn', error);
-    }
-  };
 
   const checkToken = async () => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken === null) return;
       const userData = await getUserByToken(userToken);
       console.log('checkToken', userData);
+      setUser(userData);
       setIsLoggedIn(true);
     } catch (error) {
       console.log('no valid token available');
@@ -40,10 +36,19 @@ const Login = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Login</Text>
-      <Button title="Sign in!" onPress={logIn} />
-    </View>
+    <TouchableOpacity
+      onPress={() => Keyboard.dismiss()}
+      style={{flex: 1}}
+      activeOpacity={1}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <LoginForm />
+        <RegisterForm />
+      </KeyboardAvoidingView>
+    </TouchableOpacity>
   );
 };
 
