@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Button, Text, TextInput} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
 import {useUser} from '../hooks/ApiHooks';
+import {Button, Input, Text} from '@rneui/themed';
 
 function RegisterForm(props) {
   const {
@@ -25,13 +25,13 @@ function RegisterForm(props) {
   };
 
   return (
-    <View>
-      <Text>Registeration Form</Text>
+    <>
+      <Text h3>Registeration Form</Text>
       <Controller
         control={control}
         rules={{required: true, minLength: 3}}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -51,7 +51,7 @@ function RegisterForm(props) {
         control={control}
         rules={{required: true, minLength: 5}}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -67,7 +67,7 @@ function RegisterForm(props) {
         control={control}
         rules={{required: true}}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -82,7 +82,7 @@ function RegisterForm(props) {
         control={control}
         rules={{minLength: 3}}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -95,7 +95,7 @@ function RegisterForm(props) {
         <Text>Full name min length is 3 characters!</Text>
       )}
       <Button title="Register!" onPress={handleSubmit(register)} />
-    </View>
+    </>
   );
 }
 
