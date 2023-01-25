@@ -43,7 +43,7 @@ const useAuthentication = () => {
   const postLogin = async (userCredentials) => {
     // user credentials format: {username: 'someUsername', password: 'somePassword'}
     const options = {
-      method: 'post',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -74,7 +74,7 @@ const useUser = () => {
 
   const postUser = async (userData) => {
     const options = {
-      method: 'post',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -86,7 +86,22 @@ const useUser = () => {
       throw new Error('postUser: ' + error.message);
     }
   };
-  return {getUserByToken, postUser};
+
+  const checkUsername = async (username) => {
+    const options = {
+      method: 'GET',
+    };
+    try {
+      const result = await doFetch(
+        baseUrl + 'users/username/' + username,
+        options
+      );
+      return result.available;
+    } catch (error) {
+      throw new Error('checkUsername: ' + error.message);
+    }
+  };
+  return {getUserByToken, postUser, checkUsername};
 };
 
 const useTag = () => {

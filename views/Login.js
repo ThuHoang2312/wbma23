@@ -12,11 +12,14 @@ import {MainContext} from '../contexts/MainContext';
 import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForms';
+import {Button, Text} from '@rneui/themed';
 
 const Login = ({navigation}) => {
   // props is needed for navigation
   const {setIsLoggedIn, setUser} = React.useContext(MainContext);
   const {getUserByToken} = useUser();
+
+  const [toggleForm, setToggleForm] = React.useState(true);
 
   const checkToken = async () => {
     try {
@@ -45,8 +48,18 @@ const Login = ({navigation}) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <LoginForm />
-        <RegisterForm />
+        {toggleForm ? <LoginForm /> : <RegisterForm />}
+        <Text>
+          {toggleForm
+            ? 'No account yet? Please register!'
+            : 'Already have an account? Login!'}
+        </Text>
+        <Button
+          title={toggleForm ? 'Register here!' : 'Login!'}
+          onPress={() => {
+            setToggleForm(!toggleForm);
+          }}
+        />
       </KeyboardAvoidingView>
     </TouchableOpacity>
   );
