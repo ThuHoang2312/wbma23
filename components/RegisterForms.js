@@ -65,7 +65,10 @@ function RegisterForm(props) {
         control={control}
         rules={{
           required: {value: true, message: 'This is required.'},
-          minLength: 5,
+          pattern: {
+            value: /(?=.*\p{Lu})(?=.*[0-9]).{5,}/u,
+            message: 'min 5 characters, needs one number, one uppercase letter',
+          },
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
@@ -75,11 +78,11 @@ function RegisterForm(props) {
             placeholder="Password"
             secureTextEntry={true}
             autoCapitalize="none"
+            errorMessage={errors.password && errors.password.message}
           />
         )}
         name="password"
       />
-      {errors.password && <Text>Password (min. 5 chars) is required!</Text>}
 
       <Controller
         control={control}
