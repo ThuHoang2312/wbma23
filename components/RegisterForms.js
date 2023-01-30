@@ -3,7 +3,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {useUser} from '../hooks/ApiHooks';
 import {Button, Input, Text} from '@rneui/themed';
 
-function RegisterForm(props) {
+const RegisterForm = (props) => {
   const {
     control,
     handleSubmit,
@@ -159,6 +159,6 @@ function RegisterForm(props) {
       <Button title="Register!" onPress={handleSubmit(register)} />
     </>
   );
-}
+};
 
 export default RegisterForm;

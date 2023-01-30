@@ -5,7 +5,7 @@ import {MainContext} from '../contexts/MainContext';
 import {Controller, useForm} from 'react-hook-form';
 import {Button, Input, Text} from '@rneui/themed';
 
-function LoginForm(props) {
+const LoginForm = (props) => {
   const {setIsLoggedIn, setUser} = React.useContext(MainContext);
   const {postLogin} = useAuthentication();
   const {
@@ -16,7 +16,7 @@ function LoginForm(props) {
 
   const logIn = async (loginData) => {
     console.log('Login button pressed', loginData);
-    // const data = {username: 'thuhoang', password: '123456789'};
+    // const data = {username: 'thuhoang', password: '123456789A'};
     try {
       const loginResult = await postLogin(loginData);
       console.log('logIn', loginResult);
@@ -75,6 +75,6 @@ function LoginForm(props) {
       <Button title="Sign in!" onPress={handleSubmit(logIn)} />
     </>
   );
-}
+};
 
 export default LoginForm;

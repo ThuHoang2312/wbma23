@@ -4,7 +4,7 @@ import {useUser} from '../hooks/ApiHooks';
 import {Button, Card, Input} from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function EditPasswordForm(props) {
+const EditPasswordForm = (props) => {
   const {
     control,
     handleSubmit,
@@ -89,6 +89,6 @@ function EditPasswordForm(props) {
       </Card>
     </>
   );
-}
+};
 
 export default EditPasswordForm;

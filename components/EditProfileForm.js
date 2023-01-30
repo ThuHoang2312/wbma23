@@ -5,7 +5,7 @@ import {Button, Card, Input} from '@rneui/themed';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function EditProfileForm(props) {
+const EditProfileForm = (props) => {
   const {user} = React.useContext(MainContext);
   const {
     control,
@@ -94,6 +94,6 @@ function EditProfileForm(props) {
       </Card>
     </>
   );
-}
+};
 
 export default EditProfileForm;
