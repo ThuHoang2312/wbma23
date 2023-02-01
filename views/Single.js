@@ -15,7 +15,7 @@ const Single = ({route}) => {
         <ListItem>
           <ListItem.Content>
             <ListItem.Subtitle style={styles.timeAdded}>
-              {timeAdded}
+              {new Date(timeAdded).toLocaleDateString('fi-FI')}
             </ListItem.Subtitle>
             <ListItem.Subtitle>{description}</ListItem.Subtitle>
           </ListItem.Content>
