@@ -179,4 +179,50 @@ const useTag = () => {
   return {getFilesByTag, postTag};
 };
 
-export {useMedia, useAuthentication, useUser, useTag};
+const useFavourite = () => {
+  const postFavourtie = async (fileId, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify({file_id: fileId}),
+    };
+    try {
+      return await doFetch(baseUrl + 'favourites', options);
+    } catch (error) {
+      throw new Error('postFavourtie: ' + error.message);
+    }
+  };
+  const getFavourtiesByFileId = async (fileId) => {
+    try {
+      return await doFetch(baseUrl + 'favourites/file/' + fileId);
+    } catch (error) {
+      throw new Error('getFavourtiesByFileId: ', error.message);
+    }
+  };
+  const getFavourtiesByUser = async (token) => {};
+  const deleteFavourtie = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+    };
+    try {
+      return await doFetch(baseUrl + 'favourites/file/' + fileId, options);
+    } catch (error) {
+      throw new Error('deleteFavourtie: ' + error.message);
+    }
+  };
+  return {
+    postFavourtie,
+    getFavourtiesByUser,
+    getFavourtiesByFileId,
+    deleteFavourtie,
+  };
+};
+
+export {useMedia, useAuthentication, useUser, useTag, useFavourite};

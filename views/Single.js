@@ -4,11 +4,10 @@ import {uploadUrl} from '../utils/variables';
 import {Card, Icon, ListItem, Text} from '@rneui/themed';
 import {ScrollView, StyleSheet} from 'react-native';
 import {Video} from 'expo-av';
-import {useUser} from '../hooks/ApiHooks';
+import {useFavourite, useUser} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Single = ({route}) => {
-  console.log(route.params);
   const {
     title,
     description,
@@ -16,21 +15,57 @@ const Single = ({route}) => {
     time_added: timeAdded,
     media_type: type,
     user_id: userId,
-    screenshot,
+    file_id: fileId,
   } = route.params;
   const ref = React.useRef(null);
   const [owner, setOwner] = useState({});
+  const [likes, setLikes] = useState([]);
+  const [likeStatus, setLikeStatus] = useState(true);
   const {getUserById} = useUser();
+  const {getFavourtiesByFileId, postFavourtie, deleteFavourtie} =
+    useFavourite();
 
   const getOwner = async () => {
     const token = await AsyncStorage.getItem('userToken');
     const owner = await getUserById(userId, token);
-    console.log(owner);
     setOwner(owner);
+  };
+
+  const getLikes = async () => {
+    try {
+      const likes = await getFavourtiesByFileId(fileId);
+      console.log('likes', likes);
+      setLikes(likes);
+      // TODO: check if the current user id is included in likes array
+      // and set the 'setLikeStatus' state
+    } catch (error) {
+      console.error('getLikes', error);
+    }
+  };
+
+  const likeFile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      await postFavourtie(fileId, token);
+      getLikes();
+    } catch (error) {
+      console.error('likeFile', error);
+    }
+  };
+
+  const dislikeFile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      await deleteFavourtie(fileId, token);
+      getLikes();
+    } catch (error) {
+      console.error('likeFile', error);
+    }
   };
 
   useEffect(() => {
     getOwner();
+    getLikes();
   }, []);
 
   return (
@@ -54,8 +89,6 @@ const Single = ({route}) => {
               console.log(error);
             }}
             isLooping
-            // usePoster
-            // posterSource={{uri: uploadUrl + screenshot}}
           />
         )}
 
@@ -72,6 +105,15 @@ const Single = ({route}) => {
         <ListItem>
           <Icon name="person" />
           <Text>{owner.username}</Text>
+        </ListItem>
+        <ListItem>
+          {likeStatus ? (
+            <Icon name="favorite" color={'red'} onPress={dislikeFile} />
+          ) : (
+            <Icon name="favorite-border" onPress={likeFile} />
+          )}
+
+          <Text>{likes.length}</Text>
         </ListItem>
       </Card>
     </ScrollView>
