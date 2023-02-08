@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, ScrollView} from 'react-native';
+import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 import {useTag} from '../hooks/ApiHooks';
@@ -8,7 +9,7 @@ import {Card, Icon, ListItem} from '@rneui/themed';
 import EditProfileForm from '../components/EditProfileForm';
 import EditPasswordForm from '../components/EditPasswordForm';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const {setIsLoggedIn, user, setUser} = React.useContext(MainContext);
   const {getFilesByTag} = useTag();
 
@@ -56,11 +57,21 @@ const Profile = () => {
             }
           }}
         />
+        <Button
+          title="My Files"
+          onPress={() => {
+            navigation.navigate('MyFiles');
+          }}
+        />
       </Card>
       <EditProfileForm />
       <EditPasswordForm />
     </ScrollView>
   );
+};
+
+Profile.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default Profile;

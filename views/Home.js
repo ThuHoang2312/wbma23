@@ -23,4 +23,5 @@ const styles = StyleSheet.create({
 Home.propTypes = {
   navigation: PropTypes.object,
 };
+
 export default Home;
